@@ -2,6 +2,7 @@ use clap::Parser;
 use hdrhistogram::Histogram;
 use std::{sync::Arc, time::Instant};
 use tracing_subscriber::layer::SubscriberExt;
+use tracy_client::ProfiledAllocator;
 use turso_core::{Database, PlatformIO};
 
 #[derive(Parser)]
@@ -10,6 +11,10 @@ struct Opts {
     #[arg(short, long, default_value = "100")]
     iterations: usize,
 }
+
+#[global_allocator]
+static GLOBAL: ProfiledAllocator<std::alloc::System> =
+    ProfiledAllocator::new(std::alloc::System, 100);
 
 fn main() {
     tracing::subscriber::set_global_default(
