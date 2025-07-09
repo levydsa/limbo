@@ -22,6 +22,7 @@ uuid = ["dep:uuid"]
 io_uring = ["dep:io-uring", "rustix/io_uring", "dep:libc"]
 time = []
 fuzz = []
+mimalloc = ["dep:mimalloc"]
 omit_autovacuum = []
 simulator = ["fuzz", "serde"]
 serde = ["dep:serde"]
@@ -35,7 +36,7 @@ polling = "3.7.4"
 rustix = { version = "1.0.5", features = ["fs"] }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
-mimalloc = { version = "0.1.46", default-features = false }
+mimalloc = { version = "0.1.46", default-features = false, optional = true }
 libloading = "0.8.6"
 
 [dependencies]
