@@ -237,6 +237,7 @@ impl Database {
         Ok(db)
     }
 
+    #[instrument(err, skip_all, level = Level::INFO)]
     pub fn connect(self: &Arc<Database>) -> Result<Arc<Connection>> {
         let buffer_pool = Arc::new(BufferPool::new(None));
 
